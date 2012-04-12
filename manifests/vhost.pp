@@ -1,4 +1,4 @@
-define apache::vhost($ensure=running, $source=false, $content=false, $replace=false) {
+define apache::vhost($ensure=running, $replace=false) {
   include apache
 
   $apache_sites_available = $apache::apache_sites_available
@@ -10,26 +10,17 @@ define apache::vhost($ensure=running, $source=false, $content=false, $replace=fa
     fail('Valid values for ensure: present, running, absent, purged, or stopped')
   }
 
-  if $source and $content {
-    fail('You can only specify one of "source" or "content"')
-  }
-
-  $source_real = $source ? {
-    false   => undef,
-    default => $source
-  }
-
-  $content_real = $content ? {
-    false   => undef,
-    default => $content
-  }
-
   $files_ensure = $ensure_real ? {
     /(absent|purged)/ => absent,
     default           => file
   }
 
   file {
+    "/var/www/${name}":
+      ensure  => directory,
+      owner  => "root",
+      group  => "www-data",
+      mode   => 750;
     "${apache_sites_available}/${name}":
       ensure  => $files_ensure,
       source  => $source_real,

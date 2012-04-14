@@ -23,8 +23,7 @@ define apache::vhost($ensure=running, $replace=false) {
       mode   => 750;
     "${apache_sites_available}/${name}":
       ensure  => $files_ensure,
-      source  => $source_real,
-      content => $content_real,
+      content => template('apache/vhost.erb'),
       replace => $replace;
     "${apache_sites_enabled}/${name}":
       ensure => $ensure ? {

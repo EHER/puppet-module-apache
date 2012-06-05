@@ -16,7 +16,7 @@ define apache::vhost($ensure=running, $replace=false) {
   }
 
   file {
-    "/var/www/${name}":
+    "/var/www/${name}/web":
       ensure  => directory,
       owner  => "ubuntu",
       group  => "www-data",

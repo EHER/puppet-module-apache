@@ -2,7 +2,7 @@
     ServerName <%= name %>
     ServerAlias www.<%= name %>
     ServerAlias static.<%= name %>
-    DocumentRoot /var/www/<%= name %>
+    DocumentRoot /var/www/<%= name %>/web
     FileETag none
 
     <Directory />
@@ -10,7 +10,7 @@
         AllowOverride All
     </Directory>
 
-    <Directory /var/www/<%= name %>>
+    <Directory /var/www/<%= name %>/web>
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
         Order allow,deny

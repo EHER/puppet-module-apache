@@ -16,6 +16,11 @@ define apache::vhost($ensure=running, $replace=false) {
   }
 
   file {
+    "/var/www/${name}":
+      ensure  => directory,
+      owner  => "ubuntu",
+      group  => "www-data",
+      mode   => 750;
     "/var/www/${name}/web":
       ensure  => directory,
       owner  => "ubuntu",

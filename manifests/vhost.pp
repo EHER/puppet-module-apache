@@ -21,11 +21,6 @@ define apache::vhost($ensure=running, $replace=false) {
       owner  => "ubuntu",
       group  => "www-data",
       mode   => 750;
-    "/var/www/${name}/web":
-      ensure  => directory,
-      owner  => "ubuntu",
-      group  => "www-data",
-      mode   => 750;
     "${apache_sites_available}/${name}":
       ensure  => $files_ensure,
       content => template('apache/vhost.erb'),
